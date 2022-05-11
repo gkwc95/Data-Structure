@@ -22,3 +22,23 @@ public class Count_Sorted_Vowel_Strings {
         return sum;
     }
 }
+
+/* Explanation
+n=1		n=2			n=3			Deriving n=3 from n=2 and n=1
+a e i o u	aa ee ii oo uu		aaa eee iii ooo uuu	5: 5+4+3+2+1 = 15
+1 1 1 1 1	ae ei io ou		aae eei iio oou 	4: 15-5 = 10
+		ai eo iu		aai eeo iiu ouu		3: 10-4 = 6
+		ao eu			aao eeu ioo		4: 6-3 = 3
+		au			aau eii iou		1: 3-2 = 1
+		5  4  3  2  1		aee eio iuu
+					aei eiu
+					aeo eoo
+					aeu eou
+					aii euu
+					aio
+					aiu
+					aoo
+					aou
+					auu
+					15   10   6   3   1  
+*/	

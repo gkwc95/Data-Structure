@@ -1,1 +1,1 @@
-# dailyVitamin
+# Daily LeetCode Challenge

@@ -17,7 +17,7 @@ public class Count_Sorted_Vowel_Strings {
             nums = Arrays.copyOf(tmp, 5);
             sum = 0;
             for (int j = 0; j < 5; j++)
-                sum+=nums[j];
+                sum += nums[j];
         }
         return sum;
     }
@@ -30,7 +30,7 @@ a e i o u	aa ee ii oo uu		aaa eee iii ooo uuu	5: 5+4+3+2+1 = 15
 		ai eo iu		aai eeo iiu ouu		3: 10-4 = 6
 		ao eu			aao eeu ioo		4: 6-3 = 3
 		au			aau eii iou		1: 3-2 = 1
-		5  4  3  2  1		aee eio iuu
+		5  4  3  2  1		aee eio iuu		sum = 15+10+6+3+1 = 35
 					aei eiu
 					aeo eoo
 					aeu eou

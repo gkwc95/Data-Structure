@@ -30,7 +30,7 @@ public class Permutationll {
 /*
 	Example {1,1,2}
 	i = 0; we get the first number: 1 and add it in to every position of the remaining number: output: 1 1 2, 1 1 2, 1 2 1
-	Repeat the process and we will get all the permutations.
+	Iterate through the array by doing the same process and we will get all the permutations.
 	
 	To remove duplicate, we will check if the number added to that position is equal to the number at position - 1.
 	If it is true we will stop the process.

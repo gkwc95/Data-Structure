@@ -44,6 +44,10 @@ public class Populating_Next_Right_Pointers_in_Each_Node_ll {
     }
 }
 
+/*
+So the trick is to use two pointers with BFS.
+*/
+
 class Node {
     public int val;
     public Node left;

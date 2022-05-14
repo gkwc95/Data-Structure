@@ -1,0 +1,69 @@
+package com.company;
+
+import java.util.*;
+
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        Map<Integer, ArrayList<Pair<Integer, Integer>>> edges = new HashMap<>();
+        for (int i =0; i < times.length; i++){
+            ArrayList<Pair<Integer, Integer>> tmp = edges.getOrDefault(times[i][0], new ArrayList<>());
+            tmp.add(new Pair<>(times[i][1], times[i][2]));
+            edges.put(times[i][0], tmp);
+        }
+        
+        PriorityQueue<Pair<Integer,Integer>> pq = new PriorityQueue<Pair<Integer,Integer>>((a,b) -> a.getValue() - b.getValue());
+        pq.add(new Pair <> (k, 0));
+        Set<Integer> visit = new HashSet<>();
+        int t = 0;
+        while (!pq.isEmpty()){
+            Pair<Integer, Integer> node= pq.poll();
+            if (visit.contains(node.getKey())){
+                continue;
+            }
+            visit.add(node.getKey());
+            t = Math.max(t, node.getValue());
+            
+            ArrayList<Pair<Integer, Integer>> lists = edges.get(node.getKey());
+            if (lists != null){
+                for (var u : lists){
+                    if (!visit.contains(u.getKey())){
+                        pq.add(new Pair <Integer, Integer> (u.getKey(), node.getValue()+u.getValue()));
+
+                    }
+                }
+            }
+        }
+        return visit.size() == n ? t : -1;         
+    }
+}
+
+//Using BFS approach with a min heap.
+Adding the first node to the min heap with length zero.
+Pop the node from the min heap to get its ajacent node.
+Mark the node as visited and update the time, t.
+Add the adacent node and its length from the first node into the min heap.
+Repeat the process until the min heap is empty.
+check if every node is visited. If yes return time, t.
+
+public class Pair<T extends Comparable<T>, T1> implements Comparable<Pair<T,T1>>{
+    private T x;
+    private T1 y;
+
+    public Pair(T x, T1 y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public T getKey(){
+        return x;
+    }
+
+    public T1 getValue(){
+        return y;
+    }
+
+    @Override
+    public int compareTo(Pair<T,T1> o){
+        return this.x.compareTo(o.getKey());
+    }
+}

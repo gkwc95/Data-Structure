@@ -6,7 +6,6 @@ import java.util.Queue;
 public class Deepest_Leaves_Sum {
     public int deepestLeavesSum(TreeNode root) {
         int sum = 0;
-        boolean isBottom = false;
         Queue<TreeNode> q = new LinkedList<TreeNode>();
         q.offer(root);
         while(!q.isEmpty()){
@@ -26,4 +25,8 @@ public class Deepest_Leaves_Sum {
         return sum;
     }
 }
+
+/*
+    BFS - Traverse each level of the tree and find the sum of that level.
+*/
 

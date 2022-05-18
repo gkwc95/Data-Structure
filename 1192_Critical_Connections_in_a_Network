@@ -1,0 +1,59 @@
+class Solution {
+    ArrayList<Integer>[] graph;
+    List<List<Integer>> criticalConnections;
+    int[] visitedTimes;
+    int[] lowTimes;
+    int time;
+    
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        graph = new ArrayList[n];
+        criticalConnections = new ArrayList<>();
+        visitedTimes = new int[n];
+        lowTimes = new int[n];
+        time = 0;
+        
+        buildGraph(connections);
+        boolean[] visited = new boolean[n];
+        dfs(visited, 0, -1);
+        return criticalConnections;
+    }
+    
+    private void dfs(boolean[] visited, int currNode, int parentNode){
+        visited[currNode] = true;
+        visitedTimes[currNode] = lowTimes[currNode] = time++;
+        
+        for (int neighbor: graph[currNode]){
+            if (neighbor == parentNode) continue;
+            if (!visited[neighbor]){
+                dfs(visited, neighbor, currNode);
+                lowTimes[currNode] = Math.min(lowTimes[currNode], lowTimes[neighbor]);
+                if(visitedTimes[currNode] < lowTimes[neighbor]){
+                    criticalConnections.add(Arrays.asList(currNode, neighbor));
+                }
+            }
+            else{
+                lowTimes[currNode] = Math.min(lowTimes[currNode], visitedTimes[neighbor]);
+            }
+        }
+    }
+    
+    private void buildGraph(List<List<Integer>> connections){
+        for (int i = 0 ; i< graph.length; i++){
+            graph[i] = new ArrayList<>();
+        }
+        
+        for (List<Integer> connection : connections){
+            int a = connection.get(0);
+            int b = connection.get(1);
+            graph[a].add(b);
+            graph[b].add(a);
+        }
+    }
+}
+
+
+
+*/
+Tarjan's Algorithm
+DFS
+*/

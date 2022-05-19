@@ -1,0 +1,36 @@
+class Solution {
+    int[][] matrix, graph;
+    int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    public int longestIncreasingPath(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        this.matrix = matrix;
+        int path = 0;
+        graph = new int[m][n];
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                path = Math.max(path, dfs(i, j));
+            }
+        }
+        return path;
+    }
+    
+    public int dfs(int r, int c){
+        if (graph[r][c] != 0){
+            return graph[r][c];
+        }
+        
+        for (int i = 0; i < directions.length; i++){
+            int x = directions[i][0] + r;
+            int y = directions[i][1] + c;
+            if (x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length && matrix[r][c] < matrix[x][y]){
+                graph[r][c] = Math.max(graph[r][c] ,dfs(x, y));
+            }
+        }
+        return ++graph[r][c];
+    }
+}
+
+/*
+  DFS
+*/

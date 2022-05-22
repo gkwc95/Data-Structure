@@ -1,0 +1,19 @@
+class Solution {
+    public int countSubstrings(String s) {
+        int count = 1;
+        for (int i = 1; i < s.length(); i++){
+            count += isPalindrome(s, i , i) + isPalindrome(s, i-1, i);
+        }
+        return count;
+    }
+    
+    public int isPalindrome(String s, int left, int right){
+        int count = 0;
+        while (left>=0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            count++;
+            left--;
+            right++;
+        }
+        return count;
+    }
+}

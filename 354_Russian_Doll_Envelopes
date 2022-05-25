@@ -1,0 +1,52 @@
+class Solution {
+    public int maxEnvelopes(int[][] envelopes) {
+        int n = envelopes.length;
+        Arrays.sort(envelopes, (a, b)->{
+            if (a[0] == b[0]) return a[1] > b[1] ? -1 : 1;
+            else return a[0] < b[0] ? -1 : 1;
+        });
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            if (ans.isEmpty() || envelopes[i][1] > ans.get(ans.size()-1)){
+                ans.add(envelopes[i][1]);
+            }
+            else{
+                int position = binarySearch(ans, envelopes[i][1]);
+                ans.set(position, envelopes[i][1]);
+                }
+            }
+        return ans.size();
+    }
+    
+    public int binarySearch(List<Integer> arr, int target){
+        int left = 0, right = arr.size() - 1;
+        int mid;
+        while (left <= right){
+            mid = left + (right-left)/2;
+            if (arr.get(mid) < target){
+                left = mid +1;
+            }
+            else if (arr.get(mid) > target){
+                right = mid-1;
+            }
+            else {
+                return mid;
+            }
+        }
+        return left;
+    }
+}
+
+
+/*
+  Sort the array such that the row elements are in ascending order.
+  If two row elements are equal, sort the column elements in descending order.
+  [[5,4],[6,4],[6,7],[2,3]] -> [[2,3],[5,4],[6,7],[6,4]]
+  
+  Perform LIS for the column elements. If the element is larger than the last element in the list, add the element to the list.
+  If the element is smaller than the last element in the list. Find the first element that is greater than it and replace it.
+  3, 4, 7, 4
+  1 step: [3]
+  2 step: [3, 4]
+  3 step: [3, 4, 7]
+*/

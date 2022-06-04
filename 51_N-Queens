@@ -1,0 +1,47 @@
+class Solution {
+    char[][] board;
+    List<List<String>> ans = new ArrayList<>();
+    Set<Integer> col = new HashSet<>();
+    Set<Integer> posDiag = new HashSet<>();
+    Set<Integer> negDiag = new HashSet<>();
+    int n;
+    
+    public List<List<String>> solveNQueens(int n) {
+        this.n = n;
+        board = new char[n][n];
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                board[i][j] ='.';
+            }
+        }
+        backtrack(0);
+        return ans;
+    }
+    public void backtrack(int i){
+        if (i == n){
+            List<String> tmp = new ArrayList<>();
+            for (int k = 0; k < n; k++){
+                tmp.add(String.valueOf(board[k]));
+            }
+            ans.add(tmp);
+            return;
+        }
+        for (int j = 0; j < n; j++){
+            int pDiag = i+j;
+            int nDiag = i-j;
+            if (col.contains(j) || posDiag.contains(pDiag) || negDiag.contains(nDiag)) continue;
+
+            board[i][j] = 'Q';
+            col.add(j);
+            posDiag.add(pDiag);
+            negDiag.add(nDiag);
+
+            backtrack(i+1);
+
+            board[i][j] = '.';
+            col.remove(j);
+            posDiag.remove(pDiag);
+            negDiag.remove(nDiag);
+        }
+    }
+}

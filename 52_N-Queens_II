@@ -1,0 +1,34 @@
+class Solution {
+    int count = 0;
+    int[][] board;
+    Set<Integer> cols = new HashSet<>();
+    Set<Integer> posDiag = new HashSet<>();
+    Set<Integer> negDiag = new HashSet<>();
+    public int totalNQueens(int n) {
+        board = new int[n][n];
+        backtrack(0, n);
+        return count;
+    }
+    
+    public void backtrack(int r, int n){
+        if (r == n){
+            count++;
+        }
+        for (int c = 0; c < n; c++){
+            int posD = r+c;
+            int negD = r-c;
+            if (cols.contains(c) || posDiag.contains(posD) || negDiag.contains(negD)) continue;
+            board[r][c] = 1;
+            cols.add(c);
+            posDiag.add(posD);
+            negDiag.add(negD);
+            
+            backtrack(r+1, n);
+            
+            board[r][c] = 0;
+            cols.remove(c);
+            posDiag.remove(posD);
+            negDiag.remove(negD);
+        }
+    }
+}

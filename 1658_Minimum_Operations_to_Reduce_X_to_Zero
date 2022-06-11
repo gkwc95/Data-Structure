@@ -1,0 +1,29 @@
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        int n = nums.length;
+        int sum = 0;
+        Map<Integer, Integer> mymap = new HashMap<>();
+        for (int i = 0; i< n; i++){
+            sum += nums[i];
+            mymap.put(sum, i);   
+        }
+        
+        if (x > sum) return -1;
+        mymap.put(0, 0);
+        int longest = 0;
+        sum -= x;
+        int val = 0;
+        
+        for (int i = 0; i < n; i++){
+            val += nums[i];
+            int find = val-sum;
+            if (mymap.containsKey(find)){
+                if (find == 0)
+                    longest = Math.max(longest, i-mymap.get(find)+1);
+                else
+                    longest = Math.max(longest, i-mymap.get(find));
+            }
+        }
+        return (longest== 0) ? (sum == 0 ? n:-1) : n - longest;
+    }
+}

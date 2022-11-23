@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        Map<Integer, Set<Character>> rows = new HashMap();
+        Map<Integer, Set<Character>> cols = new HashMap();
+        Map<Integer, Set<Character>> squares = new HashMap();
+
+
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                if (board[i][j] != '.'){
+                    char num = board[i][j];
+                    int sqrIn = (i/3) + 9*(j/3);
+                    Set<Character> row = rows.getOrDefault(i, new HashSet<>());
+                    Set<Character> col = cols.getOrDefault(j, new HashSet<>());
+                    Set<Character> square = squares.getOrDefault(sqrIn, new HashSet<>());
+                    if (row.contains(num) || col.contains(num) || square.contains(num)) return false;
+                    row.add(num);
+                    col.add(num);
+                    square.add(num);
+                    rows.put(i, row);
+                    cols.put(j, col);
+                    squares.put(sqrIn, square);
+                }
+            }
+        }
+        return true;
+    }
+}
